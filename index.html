@@ -393,6 +393,12 @@ $('#event-cards').innerHTML = [
 /* click-to-play: swap thumbnail for embedded player */
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-embed]'); if (!btn) return;
+  if (btn.dataset.embed.includes('tiktok.com')) {
+    const card = btn.closest('article, .group');
+    const link = card && card.querySelector('a[href*="tiktok.com/@"]');
+    if (link) { e.preventDefault(); window.open(link.href, '_blank', 'noopener'); }
+    return;
+  }
   const f = document.createElement('iframe');
   f.src = btn.dataset.embed; f.className = 'absolute inset-0 h-full w-full';
   f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.frameBorder = '0';
